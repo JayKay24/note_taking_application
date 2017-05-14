@@ -3,7 +3,10 @@
 This example uses docopt with the built in cmd module to demonstrate an 
 interactive command application.
 Usage:
-    note create <note_content>
+    note create_note <note_content>...
+    note view_note <note_id>
+    note delete_note <note_id>
+    note list_notes [<limit>]
     note (-i | --interactive)
     note (-h | --help)
 Options:
@@ -17,6 +20,7 @@ from docopt import docopt, DocoptExit
 from note_taking.classes.note_taking import NoteTaking
 
 note = NoteTaking()
+note.db.connect_db()
 
 def docopt_cmd(func):
     """
@@ -48,29 +52,38 @@ class MyInteractive (cmd.Cmd):
     
     @docopt_cmd
     def do_create_note(self, args):
-        """Usage: create <note_content>"""
+        """Usage: create_note <note_content>..."""
         
-        content = args['<note_content>']
+        content_list = args['<note_content>']
+        content = ' '.join(content_list)
         note.create_note(content)
         
     @docopt_cmd
     def do_view_note(self, args):
-        """Usage: view <note_id>"""
+        """Usage: view_note <note_id>"""
         
         note_id = args['<note_id>']
         note.view_note(note_id)
         
     @docopt_cmd
     def do_delete_note(self, args):
-        """Usage: delete <note_id>"""
+        """Usage: delete_note <note_id>"""
         
         note_id = args['<note_id>']
-        note.delete_note(note_id)
+        note.delete_a_note(note_id)
+        
+    @docopt_cmd
+    def do_list_notes(self, args):
+        """Usage: list_notes [<limit>]"""
+        
+        limit = args['<limit>']
+        note.list_notes(limit)
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""
         
         print("Good Bye!")
+        note.db.close_db()
         exit()      
 opt = docopt(__doc__, sys.argv[1:])
 if opt['--interactive']:

@@ -6,12 +6,12 @@ Created on Sun May 14 09:21:07 2017
 """
 import sys
 
-from note import Note
+from .note import Note
 
-# Add the classes directory path to sys to import classes.
-sys.path.append('../database')
+# Add the database directory path to sys to import db.
+sys.path.append('../')
 
-from db import NoteDB
+from database.db import NoteDB
 
 class NoteTaking:
     def __init__(self):

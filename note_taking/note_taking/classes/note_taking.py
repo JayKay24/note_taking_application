@@ -40,7 +40,7 @@ class NoteTaking:
         """
         List all the notes.
         """
-        if self.notes is None:
+        if self.notes is None or len(self.notes) < 1:
             self.notes = self.db.get_notes()
         if limit is not None:
             try:

@@ -17,3 +17,12 @@ class Note:
     def __init__(self, content, id=None):
         self.id = id
         self.content = content
+        
+    def search(self, query_string):
+        """
+        Return self if query_string is found in the note's content
+        
+        :arg string query_string: Text to find in the note's content
+        """
+        if query_string in self.content:
+            return self

@@ -34,10 +34,8 @@ class NoteTaking:
         for note in notes:
             if note_id == note.id:
                 print(note.content)
-                return 0
         else:
             print("No note matches that id.")
-        return 1
     def list_notes(self, limit=None):
         """
         List all the notes.

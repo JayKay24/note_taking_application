@@ -7,6 +7,8 @@
 *.orig
 *.log
 *.pot
+*.sqlite
+*.sql
 __pycache__/*
 .cache/*
 .*.swp

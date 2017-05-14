@@ -7,6 +7,7 @@ Usage:
     note view_note <note_id>
     note delete_note <note_id>
     note list_notes [<limit>]
+    note search_notes <query_string>
     note (-i | --interactive)
     note (-h | --help)
 Options:
@@ -78,6 +79,13 @@ class MyInteractive (cmd.Cmd):
         
         limit = args['<limit>']
         note.list_notes(limit)
+        
+    @docopt_cmd
+    def do_search_notes(self, args):
+        """Usage: search_notes <query_string>"""
+        
+        query_string = args['<query_string>']
+        note.search_notes(query_string)
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""

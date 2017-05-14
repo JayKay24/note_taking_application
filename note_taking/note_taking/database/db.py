@@ -82,13 +82,13 @@ class NoteDB:
             self.conn.commit()
             print("Note successfully created!")
         
-    def delete_note(self, note):
+    def delete_note(self, note_id):
         """
         Delete a note from the database.
         """
         sql = '''DELETE FROM notes WHERE note_id=?'''
         with closing(self.conn.cursor()) as c:
-            c.execute(sql, (note.id,))
+            c.execute(sql, (note_id,))
             self.conn.commit()
             print("Note successfully deleted!")
             

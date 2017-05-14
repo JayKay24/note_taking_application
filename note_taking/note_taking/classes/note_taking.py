@@ -94,6 +94,16 @@ class NoteTaking:
             for note in self.s_notes:
                 print(note.id, note.content)
                 
+    def delete_a_note(self, note_id):
+        """
+        Delete a note.
+        """
+        try:
+            note_id = int(note_id)
+            self.db.delete_note(note_id)
+        except ValueError:
+            print("Not a valid note id.")
+                
                     
         
     

@@ -17,7 +17,7 @@ class NoteTaking:
     def __init__(self):
         self.db = NoteDB()
         self.notes = None
-        self.s_notes = None
+        self.s_notes = []
         
     def create_note(self, content):
         """
@@ -34,8 +34,10 @@ class NoteTaking:
         for note in notes:
             if note_id == note.id:
                 print(note.content)
+                return 0
         else:
             print("No note matches that id.")
+        return 1
     def list_notes(self, limit=None):
         """
         List all the notes.
@@ -66,8 +68,13 @@ class NoteTaking:
         """
         Search notes for string matching query_string.
         """
-        if self.s_notes is None or len(self.s_notes) < 1:
-            self.s_notes = self.db.get_notes()
+        if len(self.s_notes) < 1:
+            notes = self.db.get_notes()
+            for note in notes:
+                found = note.search(query_string)
+                # The note was found.
+                if found is not None:
+                    self.s_notes.append(found)
         
         if limit is not None:
             try:

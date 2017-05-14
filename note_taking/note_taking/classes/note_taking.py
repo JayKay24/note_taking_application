@@ -31,11 +31,14 @@ class NoteTaking:
         View contents of a note.
         """
         notes = self.db.get_notes()
-        for note in notes:
-            if note_id == note.id:
-                print(note.content)
-        else:
-            print("No note matches that id.")
+        try: 
+            for note in notes:
+                if int(note_id) == note.id:
+                    print(note.content)
+            else:
+                print("No note matches that id.")
+        except ValueError:
+            print("Invalid note id. Please enter a valid note id.")
     def list_notes(self, limit=None):
         """
         List all the notes.

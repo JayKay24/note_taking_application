@@ -53,6 +53,13 @@ class MyInteractive (cmd.Cmd):
         content = args['<note_content>']
         note.create_note(content)
         
+    @docopt_cmd
+    def do_view_note(self, args):
+        """Usage: view <note_id>"""
+        
+        note_id = args['<note_id>']
+        note.view_note(note_id)
+        
     def do_quit(self, args):
         """Quits out of Interactive Mode."""
         

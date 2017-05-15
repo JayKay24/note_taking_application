@@ -9,6 +9,8 @@
 *.pot
 *.sqlite
 *.sql
+*.csv
+*.json
 __pycache__/*
 .cache/*
 .*.swp

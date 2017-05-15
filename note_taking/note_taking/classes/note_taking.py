@@ -79,33 +79,32 @@ class NoteTaking:
         """
         Search notes for string matching query_string.
         """
-        if len(self.s_notes) < 1:
-            notes = self.db.get_notes()
-            for note in notes:
-                found = note.search(query_string)
-                # The note was found.
-                if found is not None:
-                    self.s_notes.append(found)
-        
+        self.remaining_notes = None
         if limit is not None:
             try:
-                if len(self.s_notes) > int(limit):
-                    # Print only up to the note limit.
-                    for note in self.s_notes[:limit]:
-                        print(note.id, note.content)
-                    # Set the remaining notes that haven't been displayed yet.
-                    self.s_notes = self.s_notes[limit:]
+                limit = int(limit)
+                notes = self.db.get_notes()
+                self.found_notes = []
+                for note in notes:
+                    found = note.search(query_string)
+                    if found is not None:
+                        self.found_notes.append(found)
+                if len(self.found_notes) < 1:
+                    print("Sorry no notes were found.")
+                    return
                 else:
-                    # Print all the notes.
-                    for note in self.s_notes:
-                        print(note.id, note.content)
+                    try:
+                        self.remaining = True
+                        notes = self.found_notes[:limit]
+                        self.remaining_notes = self.found_notes[limit:]
+                        for note in notes:
+                            print("{0} \t{1}".format(note.id, note.content))
+                    except IndexError:
+                        print("Cannot display notes if limit is greater than" + 
+                        "notes")
+                        return
             except ValueError:
-                print("Invalid limit. Please enter a valid number.")
-                return
-        else:
-            # Print all the notes.
-            for note in self.s_notes:
-                print(note.id, note.content)
+                print('Invalid limit. Please enter a valid number.')
                 
     def delete_a_note(self, note_id):
         """

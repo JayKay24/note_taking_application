@@ -1,4 +1,4 @@
-.. image:: https://travis-ci.org/JayKay24/note_taking_application.svg?branch=master
+.. image:: https://travis-ci.org/JayKay24/note_taking_application.svg?branch=develop
     :target: https://travis-ci.org/JayKay24/note_taking_application
 
 

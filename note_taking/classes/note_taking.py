@@ -16,12 +16,19 @@ sys.path.append('../')
 from database.db import NoteDB
 
 class NoteTaking:
+    """
+    Class to create NoteTaking objects in the application Note Taking
+    
+    :ivar object db: A database object establishing a connection.
+    """
     def __init__(self):
         self.db = NoteDB()
         
     def create_note(self, content):
         """
         Create a note.
+        
+        :arg string content: A string to pass to Note object.
         """
         note = Note(content)
         self.db.add_note(note)
@@ -29,6 +36,9 @@ class NoteTaking:
     def view_note(self, note_id):
         """
         View contents of a note.
+        
+        :arg string note_id: A digit to be converted to an integer to establish
+                    comparison.
         """
         notes = self.db.get_notes()
         try: 
@@ -41,9 +51,17 @@ class NoteTaking:
         # The note_id is not a digit.
         except ValueError:
             print("Invalid note id. Please enter a valid note id.")
-    def list_notes(self, limit=None, next_notes=False):
+    def list_notes(self, limit=None):
         """
         List all the notes.
+        
+        :arg int limit: An integer to limit the results to be displayed.
+        
+        :ivar list remaining_notes: A list to hold remaining notes after a 
+                limit was passed.
+                
+        :ivar boolean remaining: A flag to indicate whether or not there are
+                remaining notes left.
         """
         self.remaining_notes = None
         self.remaining = False
@@ -73,6 +91,9 @@ class NoteTaking:
             print('Invalid limit. Please enter a valid number.')
             
     def next_notes(self):
+        """
+        Display the next notes after a limit is reached.
+        """
         if self.remaining is True:
             for note in self.remaining_notes:
                 print("{0} \t{1}".format(note.id, note.content))
@@ -83,6 +104,12 @@ class NoteTaking:
     def search_notes(self, query_string, limit=None):
         """
         Search notes for string matching query_string.
+        
+        :arg string query_string: A string to determine if a note exists.
+        :arg int limit: An integer to limit the notes to be displayed.
+        
+        :ivar list found_notes: A list to hold all the notes that match the
+                query_string.
         """
         self.remaining_notes = None
         if limit is not None:
@@ -123,6 +150,9 @@ class NoteTaking:
     def delete_a_note(self, note_id):
         """
         Delete a note.
+        
+        :arg string note_id: A digit to be converted to an integer to
+                establish comparison.
         """
         try:
             note_id = int(note_id)
@@ -133,6 +163,8 @@ class NoteTaking:
     def export_to_json(self, filename):
         """
         Export notes to json format.
+        
+        :arg string filename: A string containing the name of a file.
         """
         notes = self.db.get_notes()
         notes_dict = {}
@@ -149,6 +181,8 @@ class NoteTaking:
     def import_from_json(self, filename):
         """
         Import notes from json file.
+        
+        :arg string filename: A string containing the name of a file.
         """
         with open(filename) as f_obj:
             # Read the contents from the file.
@@ -160,6 +194,8 @@ class NoteTaking:
     def export_to_csv(self, filename):
         """
         Export notes to csv format.
+        
+        :arg string filename: A string containing the name of a file.
         """
         notes = self.db.get_notes()
         # Pass newline agrument to avoid double spacing on windows.
@@ -173,6 +209,8 @@ class NoteTaking:
     def import_from_csv(self, filename):
         """
         Import notes from csv format.
+        
+        :arg string filename: A string containing the name of a file.
         """
         # Read the contents from the file.
         with open(filename) as f_obj:

@@ -10,7 +10,9 @@ Usage:
     note next
     note search_notes <query_string> [<limit>]
     note export_json <filename>
+    note import_json <filename>
     note export_csv <filename>
+    note import_csv <filename>
     note (-i | --interactive)
     note (-h | --help)
 Options:
@@ -108,11 +110,25 @@ class MyInteractive (cmd.Cmd):
         note.export_to_json(filename)
         
     @docopt_cmd
+    def do_import_json(self, args):
+        """Usage: import_json <filename>"""
+        
+        filename = args['<filename>']
+        note.import_from_json(filename)
+        
+    @docopt_cmd
     def do_export_csv(self, args):
         """Usage: export_csv <filename>"""
         
         filename = args['<filename>']
         note.export_to_csv(filename)
+        
+    @docopt_cmd
+    def do_import_csv(self, args):
+        """Usage: import_csv <filename>"""
+        
+        filename = args['<filename>']
+        note.import_from_csv(filename)
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""

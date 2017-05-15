@@ -38,6 +38,7 @@ class NoteTaking:
                     break
             else:
                 print("No note matches that id.")
+        # The note_id is not a digit.
         except ValueError:
             print("Invalid note id. Please enter a valid note id.")
     def list_notes(self, limit=None, next_notes=False):
@@ -93,6 +94,7 @@ class NoteTaking:
                     found = note.search(query_string)
                     if found is not None:
                         self.found_notes.append(found)
+                # No note matches the query string.
                 if len(self.found_notes) < 1:
                     print("Sorry no notes were found.")
                     return
@@ -143,6 +145,17 @@ class NoteTaking:
         with open(filename, 'w') as f_obj:
             json.dump(notes_dict, f_obj)
         print(filename, "was successfully created!")
+        
+    def import_from_json(self, filename):
+        """
+        Import notes from json file.
+        """
+        with open(filename) as f_obj:
+            # Read the contents from the file.
+            notes = json.load(f_obj)
+        for note in notes:
+            # Add the note to the database.
+             self.create_note(note)
             
     def export_to_csv(self, filename):
         """

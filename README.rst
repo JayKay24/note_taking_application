@@ -1,6 +1,10 @@
 .. image:: https://travis-ci.org/JayKay24/note_taking_application.svg?branch=develop
     :target: https://travis-ci.org/JayKay24/note_taking_application
 
+.. image:: https://coveralls.io/repos/github/JayKay24/note_taking_application/badge.svg?branch=develop
+    :target: https://coveralls.io/github/JayKay24/note_taking_application?branch=develop
+
+
 
 ===========
 note_taking

@@ -17,8 +17,4 @@ Delete a note.
 Export or import notes to and from csv or json format.
 
 
-Note
-====
 
-This project has been set up using PyScaffold 2.5.7. For details and usage
-information on PyScaffold see http://pyscaffold.readthedocs.org/.

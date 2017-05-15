@@ -71,9 +71,11 @@ class NoteTaking:
             
     def next_notes(self):
         if self.remaining is True:
-            
             for note in self.remaining_notes:
                 print("{0} \t{1}".format(note.id, note.content))
+            self.remaining = False
+        else:
+            print("There are no more notes to print.")
                 
     def search_notes(self, query_string, limit=None):
         """
@@ -97,6 +99,7 @@ class NoteTaking:
                         self.remaining = True
                         notes = self.found_notes[:limit]
                         self.remaining_notes = self.found_notes[limit:]
+                        print("Note_id \tContent\n")
                         for note in notes:
                             print("{0} \t{1}".format(note.id, note.content))
                     except IndexError:
@@ -105,6 +108,13 @@ class NoteTaking:
                         return
             except ValueError:
                 print('Invalid limit. Please enter a valid number.')
+        else:
+            notes = self.db.get_notes()
+            print("Note_id \tContent\n")
+            for note in notes:
+                found = note.search(query_string)
+                if found is not None:
+                    print("{0} \t{1}".format(note.id, note.content))
                 
     def delete_a_note(self, note_id):
         """

@@ -8,19 +8,23 @@ Usage:
     note delete_note <note_id>
     note list_notes [<limit>]
     note next
-    note search_notes <query_string>
+    note search_notes <query_string> [<limit>]
+    note export_json <filename>
     note (-i | --interactive)
     note (-h | --help)
 Options:
     -i, --interactive  Interactive Mode
     -h, --help  Show this screen and exit
 """
+import os
 import sys
 import cmd
 from docopt import docopt, DocoptExit
 
 from note_taking.classes.note_taking import NoteTaking
 
+current_directory = os.getcwd()
+os.chdir('./note_taking/files')
 note = NoteTaking()
 note.db.connect_db()
 
@@ -89,10 +93,18 @@ class MyInteractive (cmd.Cmd):
         
     @docopt_cmd
     def do_search_notes(self, args):
-        """Usage: search_notes <query_string>"""
+        """Usage: search_notes <query_string> [<limit>]"""
         
         query_string = args['<query_string>']
-        note.search_notes(query_string)
+        limit = args['<limit>']
+        note.search_notes(query_string, limit)
+        
+    @docopt_cmd
+    def do_export_json(self, args):
+        """Usage: export_json <filename>"""
+        
+        filename = args['<filename>']
+        note.export_to_json(filename)
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""

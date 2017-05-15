@@ -1,3 +1,7 @@
+.. image:: https://travis-ci.org/JayKay24/note_taking_application.svg?branch=master
+    :target: https://travis-ci.org/JayKay24/note_taking_application
+
+
 ===========
 note_taking
 ===========

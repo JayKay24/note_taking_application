@@ -170,5 +170,19 @@ class NoteTaking:
                 output_writer.writerow([note.id, note.content])
         print(filename, "was successfully created!")
             
+    def import_from_csv(self, filename):
+        """
+        Import notes from csv format.
+        """
+        # Read the contents from the file.
+        with open(filename) as f_obj:
+            input_reader = csv.reader(f_obj)
+            for row in input_reader:
+                # input_reader is a list of rows.
+                for item in row:
+                    # Add the note to the database.
+                    self.create_note(item)
+                    
+            
         
     

@@ -5,6 +5,7 @@ Created on Sun May 14 09:21:07 2017
 @author: James Kinyua
 """
 import sys
+import json
 
 from .note import Note
 
@@ -126,6 +127,19 @@ class NoteTaking:
         except ValueError:
             print("Not a valid note id.")
                 
-                    
+    def export_to_json(self, filename):
+        """
+        Export notes to json format.
+        """
+        notes = self.db.get_notes()
+        notes_dict = {}
+        # Create a dictionary of the notes.
+        for note in notes:
+            notes_dict[note.id] = note.content
+            
+        # Create a json file
+        with open(filename) as f_obj:
+            json.dumps(notes_dict, f_obj)
+            
         
     

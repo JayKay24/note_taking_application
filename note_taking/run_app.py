@@ -7,6 +7,7 @@ Usage:
     note view_note <note_id>
     note delete_note <note_id>
     note list_notes [<limit>]
+    note next
     note search_notes <query_string>
     note (-i | --interactive)
     note (-h | --help)
@@ -79,6 +80,12 @@ class MyInteractive (cmd.Cmd):
         
         limit = args['<limit>']
         note.list_notes(limit)
+        
+    @docopt_cmd
+    def do_next(self, args):
+        """Usage: next"""
+        
+        note.next_notes()
         
     @docopt_cmd
     def do_search_notes(self, args):

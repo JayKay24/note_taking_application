@@ -137,9 +137,10 @@ class NoteTaking:
         for note in notes:
             notes_dict[note.id] = note.content
             
+        print(notes_dict)
         # Create a json file
-        with open(filename) as f_obj:
-            json.dumps(notes_dict, f_obj)
+        with open(filename, 'w') as f_obj:
+            json.dump(notes_dict, f_obj)
             
         
     

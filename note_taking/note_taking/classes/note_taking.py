@@ -6,6 +6,7 @@ Created on Sun May 14 09:21:07 2017
 """
 import sys
 import json
+import csv
 
 from .note import Note
 
@@ -141,6 +142,20 @@ class NoteTaking:
         # Create a json file
         with open(filename, 'w') as f_obj:
             json.dump(notes_dict, f_obj)
+        print(filename, "was successfully created!")
+            
+    def export_to_csv(self, filename):
+        """
+        Export notes to csv format.
+        """
+        notes = self.db.get_notes()
+        # Pass newline agrument to avoid double spacing on windows.
+        with open(filename, 'w', newline='') as f_obj:
+            # Create a csv writer object.
+            output_writer = csv.writer(f_obj)
+            for note in notes:
+                output_writer.writerow([note.id, note.content])
+        print(filename, "was successfully created!")
             
         
     
